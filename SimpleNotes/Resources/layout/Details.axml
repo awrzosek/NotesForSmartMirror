@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#282828">
+  <EditText android:id="@+id/title"
+            android:hint="@string/titlePlaceholder"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:textSize="32sp"
+            android:background="#282828"
+            android:textColor="#FFFFFF"/>
+  <EditText android:id="@+id/note"
+            android:hint="@string/notePlaceholder"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:textSize="22sp"
+            android:background="#282828"
+            android:textColor="#FFFFFF"/>
+  <!--Save button, was created before icon on toolbar, redundant-->
+  <!--<Button android:id="@+id/saveButton"
+          android:layout_width="fill_parent"
+          android:layout_height="70dp"
+          android:text="@string/saveNote"
+          android:textSize="22sp"
+          android:layout_weight="0"
+          android:background="#282828"
+          android:textColor="#FFFFFF"/>-->
+</LinearLayout>

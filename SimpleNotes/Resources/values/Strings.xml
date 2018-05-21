@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="app_name">SimpleNotes</string>
+  <string name="add">Add</string>
+  <string name="titlePlaceholder">Tytuł</string>
+  <string name="notePlaceholder">Treść notatki</string>
+  <string name="saveNote">Zapisz</string>
+</resources>
