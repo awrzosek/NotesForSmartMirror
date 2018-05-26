@@ -117,7 +117,8 @@ namespace SimpleNotes
 
             notesListView.Adapter = adapter;
 
-            // część związana z api
+            // api operations
+            // operacje związane z api
             var simpleNotesService = new SimpleNotesService();
             if (isOnline())
             {
@@ -145,6 +146,8 @@ namespace SimpleNotes
                 }
             }
             
+
+
             ///////////////////
 
 
@@ -173,14 +176,12 @@ namespace SimpleNotes
                         Note = notes[(int)args.Id].Note
                     };
                     await db.DeteleItemAsync(delNote);
-                    notes = await db.GetItemsAsync();
+                    notes.RemoveAt((int)args.Id);
                     // if there is an Internet connection, we have to delete selected note
                     // also from sql server database
                     // jeżeli jest połączenie z Internetem trzeba usunąć notatkę także z serwera
                     if (isOnline())
                     {
-                        AddMSSqlID();
-
                         await simpleNotesService.DeleteNotesAsync(Uri, delNote.tempNote_ID);
                     }
                     adapter = new NotesListViewAdapter(this, notes);
