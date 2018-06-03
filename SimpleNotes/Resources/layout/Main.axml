@@ -11,8 +11,8 @@
         android:minHeight="25px"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/notesListView" 
+        android:id="@+id/notesListView"
         android:background="#282828"
         android:divider="#C6C6C6"
-        android:dividerHeight="1dp"/>
+        android:dividerHeight="1dp" />
 </LinearLayout>

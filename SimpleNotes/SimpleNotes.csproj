@@ -79,7 +79,6 @@
     <Compile Include="DetailsActivity.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Notes.cs" />
-    <Compile Include="NotesHelper.cs" />
     <Compile Include="NotesListViewAdapter.cs" />
     <Compile Include="PUTNote.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />

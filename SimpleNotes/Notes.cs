@@ -17,7 +17,7 @@ namespace SimpleNotes
     {
         [PrimaryKey, AutoIncrement]
         public int Note_ID { get; set; }
-        public int tempNote_ID { get; set; }
+        public int sqlNote_ID { get; set; }
         public string Title { get; set; }
         public string Note { get; set; }
 

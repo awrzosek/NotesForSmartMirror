@@ -41,7 +41,7 @@ namespace SimpleNotes
             note = new Notes()
             {
                 Note_ID = Intent.GetIntExtra("ID", 0),
-                tempNote_ID = Intent.GetIntExtra("tempID",0),
+                sqlNote_ID = Intent.GetIntExtra("sqlID",0),
                 Title = Intent.GetStringExtra("title"),
                 Note = Intent.GetStringExtra("note")
             };
@@ -49,51 +49,6 @@ namespace SimpleNotes
             titleTV.Text = note.Title;
             EditText noteTV = FindViewById<EditText>(Resource.Id.note);
             noteTV.Text = note.Note;
-
-            //Save button, was created before icon on toolbar, redundant
-            //Button save = FindViewById<Button>(Resource.Id.saveButton);
-            //save.Click += async delegate (object sender, EventArgs args)
-            //{                
-            //    if (note.Title == null && note.Note == null)
-            //    {
-            //        Notes newNote = new Notes()
-            //        {
-            //            Title = titleTV.Text,
-            //            Note = noteTV.Text
-            //        };
-            //        await MainActivity.db.AddItemAsync(newNote);
-            //        if(isOnline())
-            //            await simpleNotesService.PostNotesAsync(Uri, newNote);
-            //    }
-            //    else
-            //    {
-            //        note.Title = titleTV.Text;
-            //        note.Note = noteTV.Text;
-            //        await MainActivity.db.UpdateItemAsync(note);
-            //        PUTNote putNote = new PUTNote()
-            //        {
-            //            Note_ID = note.tempNote_ID,
-            //            Title = note.Title,
-            //            Note = note.Note
-            //        };
-            //        if(isOnline())
-            //            await simpleNotesService.PutNotesAsync(Uri, note.tempNote_ID, putNote);
-            //    }
-
-            //    NotesListViewAdapter adapter = new NotesListViewAdapter(this, await MainActivity.db.GetItemsAsync());
-            //    MainActivity.NotesListView.Adapter = adapter;
-            //    MainActivity.notes = await MainActivity.db.GetItemsAsync();
-            //    if (isOnline())
-            //    {
-            //        List<Notes> temp = await simpleNotesService.GetNotesAsync(Uri);
-            //        for (int i = 0; i < MainActivity.notes.Count; i++)
-            //        {
-            //            MainActivity.notes[i].tempNote_ID = temp[i].Note_ID;
-            //        }
-            //    }
-            //    Finish();
-            //    //Toast.MakeText(this, "add clicked", ToastLength.Short).Show();
-            //};
         }
         ///////////////////////////
         public override bool OnPrepareOptionsMenu(IMenu menu)
@@ -128,7 +83,7 @@ namespace SimpleNotes
                 await MainActivity.db.UpdateItemAsync(note);
                 PUTNote putNote = new PUTNote()
                 {
-                    Note_ID = note.tempNote_ID,
+                    Note_ID = note.sqlNote_ID,
                     Title = note.Title,
                     Note = note.Note
                 };
@@ -136,7 +91,7 @@ namespace SimpleNotes
                 {
                     Toast.MakeText(this, "Zapisywanie notatki na serwerze", ToastLength.Short).Show();
                     var simpleNotesService = new SimpleNotesService();
-                    await simpleNotesService.PutNotesAsync(Uri, note.tempNote_ID, putNote);
+                    await simpleNotesService.PutNotesAsync(Uri, note.sqlNote_ID, putNote);
                 }
                 
             }
@@ -150,7 +105,7 @@ namespace SimpleNotes
                 List<Notes> temp = await simpleNotesService.GetNotesAsync(Uri);
                 for (int i = 0; i < MainActivity.notes.Count; i++)
                 {
-                    MainActivity.notes[i].tempNote_ID = temp[i].Note_ID;
+                    MainActivity.notes[i].sqlNote_ID = temp[i].Note_ID;
                 }
             }
             Finish();

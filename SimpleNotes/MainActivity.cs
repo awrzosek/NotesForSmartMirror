@@ -106,7 +106,7 @@ namespace SimpleNotes
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.Main);
 
-            // this method is not working
+            // this method is currently not working
             //Start();
 
             notesListView = FindViewById<ListView>(Resource.Id.notesListView);
@@ -142,7 +142,7 @@ namespace SimpleNotes
                         Notes note = new Notes() { Note_ID = n.Note_ID, Title = n.Title, Note = n.Note };
                         await simpleNotesService.PostNotesAsync(Uri, note);
                     }
-                    AddMSSqlID();
+                    GetSqlID();
                 }
             }
             
@@ -155,7 +155,7 @@ namespace SimpleNotes
             {
                 Intent details_activity = new Intent(this, typeof(DetailsActivity));
                 details_activity.PutExtra("ID", notes[(int)args.Id].Note_ID);
-                details_activity.PutExtra("tempID", notes[(int)args.Id].tempNote_ID);
+                details_activity.PutExtra("sqlID", notes[(int)args.Id].sqlNote_ID);
                 details_activity.PutExtra("title", notes[(int)args.Id].Title);
                 details_activity.PutExtra("note", notes[(int)args.Id].Note);
                 StartActivity(details_activity);
@@ -171,7 +171,7 @@ namespace SimpleNotes
                     Notes delNote = new Notes()
                     {
                         Note_ID = notes[(int)args.Id].Note_ID,
-                        tempNote_ID = notes[(int)args.Id].tempNote_ID,
+                        sqlNote_ID = notes[(int)args.Id].sqlNote_ID,
                         Title = notes[(int)args.Id].Title,
                         Note = notes[(int)args.Id].Note
                     };
@@ -182,7 +182,7 @@ namespace SimpleNotes
                     // jeżeli jest połączenie z Internetem trzeba usunąć notatkę także z serwera
                     if (isOnline())
                     {
-                        await simpleNotesService.DeleteNotesAsync(Uri, delNote.tempNote_ID);
+                        await simpleNotesService.DeleteNotesAsync(Uri, delNote.sqlNote_ID);
                     }
                     adapter = new NotesListViewAdapter(this, notes);
 
@@ -190,20 +190,19 @@ namespace SimpleNotes
                 });
                 alert.SetButton2("Anuluj", (c, ev) => { });
                 alert.Show();
-                //Toast.MakeText(this, "long pressed", ToastLength.Short).Show();
             };
         }
 
         // adding Note_ID value from sql server to local variable
         // dodanie do zmiennej przechowującej listę notatek z SQLite 
         // wartości Note_ID z bazy MSSQL
-        public async void AddMSSqlID()
+        public async void GetSqlID()
         {
             var simpleNotesService = new SimpleNotesService();
             List<Notes> temp = await simpleNotesService.GetNotesAsync(Uri);
             for (int i = 0; i < notes.Count; i++)
             {
-                notes[i].tempNote_ID = temp[i].Note_ID;
+                notes[i].sqlNote_ID = temp[i].Note_ID;
             }
         }
 
